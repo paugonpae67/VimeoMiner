@@ -23,6 +23,14 @@ public class Channel {
     @NotEmpty(message = "Channel name cannot be empty")
     private String name;
 
+    public Channel(String id, String name, String description, String createdTime) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.createdTime = createdTime;
+        this.videos = new ArrayList<>();
+    }
+
     @JsonProperty("description")
     @Column(columnDefinition="TEXT")
     private String description;

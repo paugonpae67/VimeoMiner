@@ -11,6 +11,13 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "Comment")
 public class Comment {
 
+    public Comment(String id, String text, String createdOn, User author) {
+        this.id = id;
+        this.text = text;
+        this.createdOn = createdOn;
+        this.author = author;
+    }
+
     @Id
     @JsonProperty("id")
     private String id;

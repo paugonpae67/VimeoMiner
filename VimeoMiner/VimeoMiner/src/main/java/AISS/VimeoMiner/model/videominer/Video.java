@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,15 @@ import java.util.List;
 @Entity
 @Table(name = "Video")
 public class Video {
+
+    public Video(String id, String name, String description, String releaseTime) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.releaseTime = releaseTime;
+        this.comments = new ArrayList<>();
+        this.captions = new ArrayList<>();
+    }
 
     @Id
     @JsonProperty("id")

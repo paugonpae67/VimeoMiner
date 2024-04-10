@@ -10,6 +10,13 @@ import jakarta.persistence.*;
 @Table(name = "VMUser")
 public class User {
 
+    public User(Long id, String name, String user_link, String picture_link) {
+        this.id = id;
+        this.name = name;
+        this.user_link = user_link;
+        this.picture_link = picture_link;
+    }
+
     /*
     * In order to avoid making the model unnecessarily complex, we establish a one-to-one relationship between Comment and
     * User (instead of many-to-one). This causes an exception if we try to add a Comment to the DataBase that has been

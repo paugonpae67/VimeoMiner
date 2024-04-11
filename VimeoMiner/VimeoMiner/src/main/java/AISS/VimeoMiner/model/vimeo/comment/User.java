@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-
-    @JsonProperty("link")
-    private String link;
-    @JsonProperty("name")
-    private String name;
-   // @JsonProperty("pictures")
-    //private Pictures pictures;
     @JsonProperty("uri")
     private String uri;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("link")
+    private String link;
+
+   @JsonProperty("pictures")
+    private Pictures pictures;
 
     @JsonProperty("link")
     public String getLink() {
@@ -39,7 +39,7 @@ public class User {
         this.name = name;
     }
 
-    /*@JsonProperty("pictures")
+    @JsonProperty("pictures")
     public Pictures getPictures() {
         return pictures;
     }
@@ -48,7 +48,6 @@ public class User {
     public void setPictures(Pictures pictures) {
         this.pictures = pictures;
     }
-*/
     @JsonProperty("uri")
     public String getUri() {
         return uri;
@@ -73,7 +72,7 @@ public class User {
         sb.append(',');
         sb.append("pictures");
         sb.append('=');
-        //sb.append(((this.pictures == null)?"<null>":this.pictures));
+        sb.append(((this.pictures == null)?"<null>":this.pictures));
         sb.append(',');
         sb.append("uri");
         sb.append('=');

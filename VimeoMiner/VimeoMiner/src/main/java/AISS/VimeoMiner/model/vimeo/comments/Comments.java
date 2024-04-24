@@ -4,6 +4,7 @@ package AISS.VimeoMiner.model.vimeo.comments;
 import java.util.List;
 
 
+import AISS.VimeoMiner.model.vimeo.comment.User;
 import AISS.VimeoMiner.model.vimeo.comment.Comment;
 import AISS.VimeoMiner.model.vimeo.comments.Paging;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,6 +25,7 @@ public class Comments {
     private Paging paging;
     @JsonProperty("data")
     private List<AISS.VimeoMiner.model.vimeo.comment.Comment> comments;
+
 
     @JsonProperty("total")
     public Integer getTotal() {
@@ -74,6 +76,8 @@ public class Comments {
     public void setData(List<Comment> comments) {
         this.comments = comments;
     }
+
+
 
     @Override
     public String toString() {

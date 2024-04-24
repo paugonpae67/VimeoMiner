@@ -3,6 +3,7 @@ package AISS.VimeoMiner.etl;
 import AISS.VimeoMiner.model.videominer.Caption;
 import AISS.VimeoMiner.model.videominer.Comment;
 import AISS.VimeoMiner.model.videominer.Video;
+import AISS.VimeoMiner.model.videominer.User;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +24,20 @@ public class Transform {
     }
 
     public static Comment tranformComment(AISS.VimeoMiner.model.vimeo.comment.Comment commentVimeo){
+        String id= commentVimeo.getId();
+        String text= commentVimeo.getText();
+        String date= commentVimeo.getCreatedOn();
+        User author= transformUser(commentVimeo.getUser());
+        return new Comment(id,text,date,author);
 
+    }
+
+    public static User transformUser(AISS.VimeoMiner.model.vimeo.comment.User usuarioVimeo){
+        Long id= usuarioVimeo.getId();
+        String name= usuarioVimeo.getName();
+        String userLink= usuarioVimeo.getLink();
+        String pictureLink= usuarioVimeo.getPictures().getLink();
+
+        return new User(id,name,userLink,pictureLink);
     }
 }

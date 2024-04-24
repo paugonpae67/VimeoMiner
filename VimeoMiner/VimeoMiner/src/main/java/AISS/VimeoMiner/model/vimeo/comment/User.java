@@ -58,6 +58,10 @@ public class User {
         this.uri = uri;
     }
 
+    public Long getId(){
+        return Long.valueOf(this.getUri().replace("/users/", ""));
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

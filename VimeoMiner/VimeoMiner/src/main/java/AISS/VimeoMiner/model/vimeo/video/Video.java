@@ -57,6 +57,10 @@ public class Video {
         this.releaseTime = releaseTime;
     }
 
+    public String getId(){
+        return this.getUri().replace("/videos/","");
+    }
+
     @Override
     public String toString() {
         return "Video{" +

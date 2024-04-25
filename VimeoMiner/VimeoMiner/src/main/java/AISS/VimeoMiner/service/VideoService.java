@@ -16,10 +16,11 @@ import java.util.List;
 
 @Service
 public class VideoService {
+
     @Autowired
-    static RestTemplate restTemplate; //Esto es static????
+    RestTemplate restTemplate;
     public Video getVideo(String id){
-        String uri= "https://api.vimeo.com/videos/"+ id;
+        String uri= "https://api.vimeo.com/videos/"+ id+"?per_page=2"; //Limitado a 2 para probar
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);
@@ -28,7 +29,7 @@ public class VideoService {
         return response.getBody();
     }
 
-    public static List<Video> getVideos(String channelId){
+    public List<Video> getVideos(String channelId){
         String uri="https://api.vimeo.com/channels/"+channelId+"/videos";
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";

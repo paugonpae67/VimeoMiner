@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class CommentService {
     @Autowired
-    static RestTemplate restTemplate; //Esto es static???
+    RestTemplate restTemplate;
     public Comment getComment(String videoId, String id){
         String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/"+ id;
         HttpHeaders httpHeaders= new HttpHeaders();
@@ -30,8 +30,8 @@ public class CommentService {
         return response.getBody();
     }
 
-    public static List<Comment> getVideoComments(String videoId){
-        String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/";
+    public List<Comment> getVideoComments(String videoId){
+        String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/?per_page=2"; //Limitado a 2 para probar
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);

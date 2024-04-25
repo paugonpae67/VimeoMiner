@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Transform {
-
-    public static Video tranformVideo(AISS.VimeoMiner.model.vimeo.video.Video videoVimeo){
+    //Necesito un Transform para el Channel!!!!
+    public static Video transformVideo(AISS.VimeoMiner.model.vimeo.video.Video videoVimeo){
         String id=videoVimeo.getId();
         String nombre=videoVimeo.getName();
         String descripcion= videoVimeo.getDescription();

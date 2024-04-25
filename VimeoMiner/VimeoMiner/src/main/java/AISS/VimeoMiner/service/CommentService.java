@@ -30,7 +30,7 @@ public class CommentService {
         return response.getBody();
     }
 
-    public List<Comment> getVideoComments(String videoId){
+    public static List<Comment> getVideoComments(String videoId){
         String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/";
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";

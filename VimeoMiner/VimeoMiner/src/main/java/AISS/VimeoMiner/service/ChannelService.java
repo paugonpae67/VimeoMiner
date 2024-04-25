@@ -14,7 +14,7 @@ public class ChannelService {
     @Autowired
     RestTemplate restTemplate;
 
-    public Channel getChannel(String id){
+    public static Channel getChannel(String id){ //Esto es estático????
         String uri= "https://api.vimeo.com/channels/"+ id;
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";

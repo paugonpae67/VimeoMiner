@@ -41,10 +41,10 @@ public class ChannelController {
         List<AISS.VimeoMiner.model.videominer.Video> videos=new LinkedList<>();
         for(Video videoVimeo:videosVimeo){
             AISS.VimeoMiner.model.videominer.Video video= Transform.transformVideo(videoVimeo);
-            //List<Comment> comentarios= commentService.getVideoComments(videoVimeo.getId()).stream().map(Transform::transformComment).toList();
-            //video.setComments(comentarios);
-            //List<Caption> captions= captionService.getVideoCaptions(videoVimeo.getId()).stream().map(Transform::transformCaption).toList();
-            //video.setCaptions(captions);
+            List<Comment> comentarios= commentService.getVideoComments(videoVimeo.getId()).stream().map(Transform::transformComment).toList();
+            video.setComments(comentarios);
+            List<Caption> captions= captionService.getVideoCaptions(videoVimeo.getId()).stream().map(Transform::transformCaption).toList();
+            video.setCaptions(captions);
             videos.add(video);
         }
         channel.setVideos(videos);

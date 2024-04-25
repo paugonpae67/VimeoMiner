@@ -31,7 +31,7 @@ public class CommentService {
     }
 
     public List<Comment> getVideoComments(String videoId){
-        String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/?per_page=2"; //Limitado a 2 para probar
+        String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/?per_page=10"; //Limitado a 10 para probar
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);

@@ -20,7 +20,7 @@ public class VideoService {
     @Autowired
     RestTemplate restTemplate;
     public Video getVideo(String id){
-        String uri= "https://api.vimeo.com/videos/"+ id;
+        String uri= "https://api.vimeo.com/videos/"+ id+"?fields=uri,name,description,release_time"; //Field filtering
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);
@@ -30,7 +30,8 @@ public class VideoService {
     }
 
     public List<Video> getVideos(String channelId){
-        String uri="https://api.vimeo.com/channels/"+channelId+"/videos"+"?per_page=10"; //Limitado a 10 para probar
+        String uri="https://api.vimeo.com/channels/"+channelId+"/videos"+"?per_page=10"+ //Limitado a 10 para probar
+                "&fields=uri,name,description,release_time"; //Field filtering
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);

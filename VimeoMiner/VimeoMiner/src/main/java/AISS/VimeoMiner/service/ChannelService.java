@@ -15,7 +15,8 @@ public class ChannelService {
     RestTemplate restTemplate;
 
     public Channel getChannel(String id){
-        String uri= "https://api.vimeo.com/channels/"+ id;
+        String uri= "https://api.vimeo.com/channels/"+ id
+                +"?fields=uri,name,description,created_time"; //Field filtering
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);

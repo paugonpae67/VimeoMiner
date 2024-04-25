@@ -30,7 +30,8 @@ public class CaptionService {
     }
 
     public List<Caption> getVideoCaptions(String videoId){
-        String uri= "https://api.vimeo.com/videos/"+ videoId+"/texttracks";//+"/?per_page=2"; //Limitado para pruebass
+        String uri= "https://api.vimeo.com/videos/"+ videoId+"/texttracks"
+                +"?fields=id,language,name"; //Field filtering
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);

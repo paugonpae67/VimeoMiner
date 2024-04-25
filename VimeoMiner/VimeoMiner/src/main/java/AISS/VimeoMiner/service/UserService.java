@@ -15,7 +15,8 @@ public class UserService {
     @Autowired
     RestTemplate restTemplate;
     public User getUser(String id){
-        String uri= "https://api.vimeo.com/users/"+ id;
+        String uri= "https://api.vimeo.com/users/"+ id
+                +"?fields=uri,name,link,pictures"; //Field filtering
         HttpHeaders httpHeaders= new HttpHeaders();
         String token= "25ea87773a8779c13f997ee68b9fad10";
         httpHeaders.set("Authorization","bearer "+ token);

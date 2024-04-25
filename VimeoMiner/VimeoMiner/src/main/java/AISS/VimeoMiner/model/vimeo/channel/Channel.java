@@ -52,6 +52,10 @@ public class Channel {
         this.createdTime = createdTime;
     }
 
+    public String getId(){
+        return this.getUri().replace("/channels/","");
+    }
+
     @Override
     public String toString() {
         return "Channel{" +

@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class CommentService {
     @Autowired
-    RestTemplate restTemplate;
+    static RestTemplate restTemplate; //Esto es static???
     public Comment getComment(String videoId, String id){
         String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/"+ id;
         HttpHeaders httpHeaders= new HttpHeaders();

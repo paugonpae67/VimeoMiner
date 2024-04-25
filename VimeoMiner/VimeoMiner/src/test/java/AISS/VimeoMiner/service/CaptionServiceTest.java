@@ -1,6 +1,6 @@
 package AISS.VimeoMiner.service;
 
-import AISS.VimeoMiner.model.videominer.Caption;
+import AISS.VimeoMiner.model.vimeo.caption.Caption;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

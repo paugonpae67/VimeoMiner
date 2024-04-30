@@ -10,8 +10,13 @@ import AISS.VimeoMiner.service.ChannelService;
 import AISS.VimeoMiner.service.CommentService;
 import AISS.VimeoMiner.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import AISS.VimeoMiner.etl.Transform;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +35,8 @@ public class ChannelController {
     CommentService commentService;
     @Autowired
     CaptionService captionService;
+    @Autowired
+    RestTemplate restTemplate;
 
 
 
@@ -51,9 +58,16 @@ public class ChannelController {
         return channel;
     }
 
+
     @PostMapping("/{id}")
-    public void postChannel(@PathVariable String id){
+    public Channel postChannel(@PathVariable String id){
         Channel channel= findChannel(id);
+
+        String uri= "http://localhost:8080/videominer/channels";
+        HttpHeaders httpHeaders= new HttpHeaders();
+        HttpEntity<Channel> request= new HttpEntity<>(channel,httpHeaders);
+        ResponseEntity<Channel> response= restTemplate.exchange(uri, HttpMethod.POST,request, Channel.class);
+        return response.getBody();
 
     }
 }

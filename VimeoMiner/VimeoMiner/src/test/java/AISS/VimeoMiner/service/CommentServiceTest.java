@@ -1,5 +1,6 @@
 package AISS.VimeoMiner.service;
 
+import AISS.VimeoMiner.exception.MaxCommentsException;
 import AISS.VimeoMiner.model.vimeo.comment.Comment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,9 +24,9 @@ class CommentServiceTest {
 
     @Test
     @DisplayName("Get comments from a video")
-    void getVideoComments(){
-        List<Comment> comments=commentService.getVideoComments("715547149");
-        System.out.println(comments);
+    void getVideoComments() throws MaxCommentsException {
+        List<Comment> comments=commentService.getVideoComments("715547149",0);
+        comments.stream().forEach(c->System.out.println(c+"\n"));
     }
 
 }

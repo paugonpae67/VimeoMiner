@@ -69,5 +69,6 @@ public class ChannelController {
         ResponseEntity<Channel> response= restTemplate.exchange(uri, HttpMethod.POST,request, Channel.class);
         return response.getBody();
 
+
     }
 }

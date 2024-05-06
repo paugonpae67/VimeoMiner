@@ -11,6 +11,13 @@ import AISS.VimeoMiner.service.CaptionService;
 import AISS.VimeoMiner.service.ChannelService;
 import AISS.VimeoMiner.service.CommentService;
 import AISS.VimeoMiner.service.VideoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,7 +31,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.LinkedList;
 import java.util.List;
-
+@Tag(name= "Youtube", description =  "Yputube management API")
 @RestController
 @RequestMapping("/api/channel") //Cual es la uri que hay que usar?????
 public class ChannelController {
@@ -40,10 +47,19 @@ public class ChannelController {
     RestTemplate restTemplate;
 
 
+    @Operation(
+            summary = "Retrieve a Vimeo channel by Id",
+            description= "Get a Vimeo channel by specifying its Id",
+            tags = {"channel", "get"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Vimeo channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
+            })
 
     @GetMapping("/{id}")
-    public Channel findChannel(@PathVariable String id, @RequestParam(required = false,defaultValue = "10") int maxVideos,
-                               @RequestParam(required = false,defaultValue = "10") int maxComments ) throws MaxCommentsException, MaxVideosException {
+    public Channel findChannel(@Parameter(description = "Id's name of the channel")@PathVariable String id,
+                               @Parameter(description = "Optional parameter to limit the number of videos")@RequestParam(required = false,defaultValue = "10") int maxVideos,
+                               @Parameter(description = "Optional parameter to limit the number of comments")@RequestParam(required = false,defaultValue = "10") int maxComments ) throws MaxCommentsException, MaxVideosException {
         AISS.VimeoMiner.model.vimeo.channel.Channel channelVimeo = channelService.getChannel(id);
         Channel channel = Transform.transformChannel(channelVimeo);
         List<AISS.VimeoMiner.model.videominer.Video> videos = new LinkedList<>();
@@ -60,10 +76,18 @@ public class ChannelController {
         return channel;
     }
 
-
+    @Operation(
+            summary = "Insert a Channel in VideoMiner",
+            description= "Add a new Vimeo channel (looked by its Id in Vimeo) whose data is passed in the body of the request in Json format",
+            tags = {"channels", "post"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Vimeo channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
+            })
     @PostMapping("/{id}")
-    public Channel postChannel(@PathVariable String id, @RequestParam(required = false,defaultValue = "10") int maxVideos,
-                               @RequestParam(required = false,defaultValue = "10") int maxComments ) throws MaxCommentsException, MaxVideosException {
+    public Channel postChannel(@Parameter(description = "Id's name of the channel")@PathVariable String id,
+                               @Parameter(description = "Optional parameter to limit the number of videos")@RequestParam(required = false,defaultValue = "10") int maxVideos,
+                               @Parameter(description = "Optional parameter to limit the number of comments")@RequestParam(required = false,defaultValue = "10") int maxComments ) throws MaxCommentsException, MaxVideosException {
         Channel channel= findChannel(id,maxVideos,maxComments);
 
         String uri= "http://localhost:8080/videominer/channels";

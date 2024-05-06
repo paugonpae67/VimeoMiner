@@ -3,6 +3,7 @@ package AISS.VimeoMiner.model.videominer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 /**
  * @author Juan C. Alonso
@@ -27,6 +28,7 @@ public class Comment {
     private String text;
 
     @JsonProperty("createdOn")
+    @PastOrPresent(message = "Comment creation time can not be in the future")
     private String createdOn;
 
     @JsonProperty("author")

@@ -1,6 +1,7 @@
 package AISS.VimeoMiner.service;
 
 
+import AISS.VimeoMiner.exception.MaxCommentsException;
 import AISS.VimeoMiner.model.videominer.Caption;
 import AISS.VimeoMiner.model.vimeo.comment.Comment;
 import AISS.VimeoMiner.model.vimeo.comments.Comments;
@@ -30,18 +31,25 @@ public class CommentService {
         return response.getBody();
     }
 
-    public List<Comment> getVideoComments(String videoId){
-        String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/?per_page=10" //Limitado a 10 para probar
-        +"&fields=created_on,text,uri,user"; //Field filtering
-        HttpHeaders httpHeaders= new HttpHeaders();
-        String token= "25ea87773a8779c13f997ee68b9fad10";
-        httpHeaders.set("Authorization","bearer "+ token);
-        HttpEntity<Comments> request= new HttpEntity<>(null,httpHeaders);
-        ResponseEntity<Comments> response= restTemplate.exchange(uri, HttpMethod.GET,request, Comments.class);
-        if(response.hasBody()) {
-            return response.getBody().getData();
+    public List<Comment> getVideoComments(String videoId, Integer maxComments) throws MaxCommentsException {
+        if(maxComments==null || maxComments<0){
+            throw new MaxCommentsException();
+        }else if(maxComments>0){
+            String uri= "https://api.vimeo.com/videos/"+ videoId+"/comments/?per_page="+maxComments
+                    +"&fields=created_on,text,uri,user"; //Field filtering
+            HttpHeaders httpHeaders= new HttpHeaders();
+            String token= "25ea87773a8779c13f997ee68b9fad10";
+            httpHeaders.set("Authorization","bearer "+ token);
+            HttpEntity<Comments> request= new HttpEntity<>(null,httpHeaders);
+            ResponseEntity<Comments> response= restTemplate.exchange(uri, HttpMethod.GET,request, Comments.class);
+            if(response.hasBody()) {
+                return response.getBody().getData();
+            }else{
+                return new LinkedList<Comment>();
+            }
         }else{
-            return new LinkedList<>();
+            return new LinkedList<Comment>();
         }
+
     }
 }

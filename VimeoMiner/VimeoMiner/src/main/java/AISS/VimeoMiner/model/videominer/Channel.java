@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,13 @@ import java.util.List;
 @Entity
 @Table(name = "Channel")
 public class Channel {
+    public Channel(String id, String name, String description, String createdTime) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.createdTime = createdTime;
+        this.videos = new ArrayList<>();
+    }
 
     @Id
     @JsonProperty("id")
@@ -23,20 +31,12 @@ public class Channel {
     @NotEmpty(message = "Channel name cannot be empty")
     private String name;
 
-    public Channel(String id, String name, String description, String createdTime) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.createdTime = createdTime;
-        this.videos = new ArrayList<>();
-    }
-
     @JsonProperty("description")
     @Column(columnDefinition="TEXT")
     private String description;
 
     @JsonProperty("createdTime")
-    @NotEmpty(message = "Channel creation time cannot be empty")
+    @PastOrPresent(message = "Channel created time can not be in the future")
     private String createdTime;
 
     @JsonProperty("videos")
